@@ -77,5 +77,9 @@ class EmpController extends Controller
         return EmployeService::getStudentById($id);
     }
 
+    public function getProfs(){
+        return EmployeService::getProfs();
+    }
+
     
 }

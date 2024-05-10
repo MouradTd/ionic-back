@@ -18,4 +18,9 @@ class Classe extends Model
     {
         return $this->belongsTo(Employee::class, 'prof_id', 'id');
     }
+
+    public function students()
+    {
+        return $this->belongsToMany(Employee::class);
+    }
 }

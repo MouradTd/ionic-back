@@ -9,7 +9,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\EmpController\EmpController;
 use App\Http\Controllers\AbsencesController;
-
+use App\Http\Controllers\SeanceController;
 
 Route::get('/', function (Request $request) {
     return response()->json([
@@ -36,6 +36,7 @@ Route::middleware('auth:api')->prefix('employe')->group(function () {
     Route::get('/statsProfesser', [EmpController::class, 'statsProfesser']);
     Route::get('/getStudentsByClasse/{id}', [EmpController::class, 'getStudentsByClasse']);
     Route::get('/getStudents', [EmpController::class, 'getStudents']);
+    Route::get('/getProfs', [EmpController::class, 'getProfs']);
     Route::get('/getStudent/{id}', [EmpController::class, 'getStudentById']);
     Route::post('/addStudent', [EmpController::class, 'addStudent']);
 
@@ -57,7 +58,11 @@ Route::middleware('auth:api')->prefix('absence')->group(function () {
 });
 
 
-
+Route::middleware('auth:api')->prefix('sceance')->group(function () {
+    Route::get('/get', [SeanceController::class, 'get']);
+    Route::post('/insert', [SeanceController::class, 'insert']);
+    Route::get('/get/{id}', [SeanceController::class, 'getSeanceById']);
+});
 
 
 

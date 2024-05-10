@@ -14,8 +14,19 @@ class Seances extends Model
         'prof_id',
         'classe_id',
         'date',
-        'heure_debut',
-        'heure_fin',
+        'heur_debut',
+        'heur_fin',
         'salle',
+        'nom',
     ];
+
+    public function classe()
+    {
+        return $this->belongsTo(Classe::class, 'classe_id');
+    }
+
+    public function prof()
+    {
+        return $this->belongsTo(Employee::class, 'prof_id');
+    }
 }

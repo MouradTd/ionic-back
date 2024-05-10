@@ -441,4 +441,12 @@ class EmployeService
         
     }
 
+    static function getProfs(){
+        $profs = Employee::where('type', 'prof')
+        ->get();
+        return response()->json([
+            'profs' => $profs
+        ], 200);
+    }
+
 }
