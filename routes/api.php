@@ -34,7 +34,7 @@ Route::middleware('auth:api')->prefix('employe')->group(function () {
     Route::get('/DownloadFiles/{id}', [EmpController::class, 'DownloadFiles']);
     Route::get('/downloadAllFiles', [EmpController::class, 'downloadAllFiles']);
     Route::get('/statsProfesser', [EmpController::class, 'statsProfesser']);
-    Route::get('/getStudentsByClasse/{id}', [EmpController::class, 'getStudentsByClasse']);
+    Route::get('/getStudentsByClasse/{id}/{sceanceId}', [EmpController::class, 'getStudentsByClasse']);
     Route::get('/getStudents', [EmpController::class, 'getStudents']);
     Route::get('/getProfs', [EmpController::class, 'getProfs']);
     Route::get('/getStudent/{id}', [EmpController::class, 'getStudentById']);
@@ -55,6 +55,7 @@ Route::middleware('auth:api')->prefix('absence')->group(function () {
     Route::get('/get', [AbsencesController::class, 'get']);
     Route::post('/insert', [AbsencesController::class, 'insert']);
     Route::post('/MotifAbsences/{id}', [AbsencesController::class, 'MotifAbsences']);
+    Route::get('/getLatestAbsences', [AbsencesController::class, 'getLatestAbsences']);
 });
 
 

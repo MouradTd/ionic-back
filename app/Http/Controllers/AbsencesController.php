@@ -24,4 +24,8 @@ class AbsencesController extends Controller
     {
         return AbsencesService::MotifAbsences($id,$request);
     }
+    public function getLatestAbsences()
+    {
+        return AbsencesService::getLatestAbsences();
+    }
 }

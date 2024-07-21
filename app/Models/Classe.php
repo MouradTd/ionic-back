@@ -21,6 +21,6 @@ class Classe extends Model
 
     public function students()
     {
-        return $this->belongsToMany(Employee::class);
+        return $this->belongsToMany(Employee::class, 'classe', 'id', 'id');
     }
 }

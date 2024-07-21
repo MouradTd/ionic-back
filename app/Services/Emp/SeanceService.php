@@ -53,6 +53,7 @@ class SeanceService
             })->get()->each(function ($student) {
                 $student->absent = false;
             });
+            Log::info($participatingStudents);
 
         $absentStudents = Employee::where('classe_id', $seance->classe_id)
             ->whereHas('absences', function ($query) use ($id) {
@@ -60,6 +61,7 @@ class SeanceService
             })->get()->each(function ($student) {
                 $student->absent = true;
             });
+            Log::info($absentStudents);
 
         $students = $participatingStudents->concat($absentStudents);
     

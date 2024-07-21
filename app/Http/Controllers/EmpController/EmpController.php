@@ -44,9 +44,9 @@ class EmpController extends Controller
         return EmployeService::statsProfesser();
     }
 
-    public function getStudentsByClasse($id)
+    public function getStudentsByClasse($id,$sceanceId)
     {
-        return EmployeService::getStudentsByClasse($id);
+        return EmployeService::getStudentsByClasse($id,$sceanceId);
     }
 
 

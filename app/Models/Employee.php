@@ -73,7 +73,9 @@ class Employee extends Model
         return $this->hasMany(Absences::class, 'student_id', 'id');
     }
     
-
+    public function students() {
+        return $this->hasMany(Classe::class, 'classe_id', 'id');
+    }
     
 
     // public function absences()

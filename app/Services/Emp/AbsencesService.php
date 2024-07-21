@@ -65,5 +65,16 @@ class AbsencesService
         ], 200);
     }
 
+    static function getLatestAbsences(){
+        $absences = Absences::whereNotNull('motif')
+        ->latest()
+        ->with('classe','seance','student')
+        ->get();
+
+        return response()->json([
+            'absences' => $absences
+        ], 200);
+    }
+
 
 }

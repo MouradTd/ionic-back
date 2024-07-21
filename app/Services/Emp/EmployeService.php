@@ -360,24 +360,25 @@ class EmployeService
     }
 
 
-    static function getStudentsByClasse($id)
+    static function getStudentsByClasse($id,$sceanceId)
     {
         try {
             $currentHour = Carbon::now();
             $classe = Classe::find($id);
-            if (!$classe) {
+            if (!$classe) { 
                 return response()->json([
                     'message' => 'Classe not found'
                 ], 404);
             }
             $students = Employee::where('classe_id', $id)->get();
-            $seance = Seances::where('classe_id', $id)
-                             ->where(function($query) use ($currentHour) {
-                                 $query->where('heur_debut', '<=', $currentHour->format('H:i:s'))
-                                       ->where('heur_fin', '>=', $currentHour->format('H:i:s'));
-                             })
+            $seance = Seances::where('id', $sceanceId)
+            ->where('classe_id', $id)
+                            //  ->where(function($query) use ($currentHour) {
+                            //      $query->where('heur_debut', '<=', $currentHour->format('H:i:s'))
+                            //            ->where('heur_fin', '>=', $currentHour->format('H:i:s'));
+                            //  })
                              ->first();
-            
+            Log::info($currentHour->format('H:i:s'));
             return response()->json([
                 'students' => $students,
                 'classe' => $classe,
