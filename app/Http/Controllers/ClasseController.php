@@ -15,6 +15,10 @@ class ClasseController extends Controller
     {
         return ClasseService::get();
     }
+    public function getById($id)
+    {
+        return ClasseService::getById($id);
+    }
 
     public function insert(Request $request)
     {
@@ -40,6 +44,11 @@ class ClasseController extends Controller
     {
         return ClasseService::GetClasseByProfId();
     }
+    public function GetAllClasses()
+    {
+        return ClasseService::GetAllClasses();
+    }
+
 
     
 }

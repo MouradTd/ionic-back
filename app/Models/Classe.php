@@ -21,6 +21,10 @@ class Classe extends Model
 
     public function students()
     {
-        return $this->belongsToMany(Employee::class, 'classe', 'id', 'id');
+        return $this->hasMany(Employee::class, 'classe_id', 'id');
+    }
+    public function sceance()
+    {
+        return $this->hasMany(Seances::class);
     }
 }

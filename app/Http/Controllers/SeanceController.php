@@ -23,4 +23,9 @@ class SeanceController extends Controller
     {
         return SeanceService::getSeanceById($id);
     }
+
+    public function getTodaysSeance()
+    {
+        return SeanceService::getTodaysSeance();
+    }
 }

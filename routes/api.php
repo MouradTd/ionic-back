@@ -44,11 +44,13 @@ Route::middleware('auth:api')->prefix('employe')->group(function () {
 
 Route::middleware('auth:api')->prefix('classe')->group(function () {
     Route::get('/get', [ClasseController::class, 'get']);
+    Route::get('/get/{id}', [ClasseController::class, 'getById']);
     Route::post('/insert', [ClasseController::class, 'insert']);
     Route::post('/update/{id}', [ClasseController::class, 'update']);
     Route::delete('/delete/{id}', [ClasseController::class, 'delete']);
     Route::post('/AffectStudentToClasse/{id}', [ClasseController::class, 'AffectStudentToClasse']);
     Route::get('/GetClasseByProfId', [ClasseController::class, 'GetClasseByProfId']);
+    Route::get('/GetAllClasses', [ClasseController::class, 'GetAllClasses']);
 });
 
 Route::middleware('auth:api')->prefix('absence')->group(function () {
@@ -63,6 +65,7 @@ Route::middleware('auth:api')->prefix('sceance')->group(function () {
     Route::get('/get', [SeanceController::class, 'get']);
     Route::post('/insert', [SeanceController::class, 'insert']);
     Route::get('/get/{id}', [SeanceController::class, 'getSeanceById']);
+    Route::get('/getTodaysSeance', [SeanceController::class, 'getTodaysSeance']);
 });
 
 

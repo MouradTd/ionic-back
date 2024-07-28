@@ -10,7 +10,29 @@ use Illuminate\Support\Facades\Log;
 class SeanceService
 {
     static function get(){
-        $seances = Seances::with('classe', 'prof')->get();
+            $user = auth('api')->user();
+            $role = auth('api')->user()->roles[0]->name;
+            Log::info($role);
+            switch ($role) {
+                case 'Professeur':
+                    $seances = Seances::where('prof_id', $user->employee_id)->with('classe', 'prof')->get();
+                    break;
+                case 'Administration':
+                    $seances = Seances::with('classe', 'prof')->get();
+                    break;
+                case 'Etudiant':
+                    $student = Employee::find($user->employee_id);
+                    Log::info($student);
+                    $seances = Seances::with('classe', 'prof')
+                                    ->where('classe_id', $student->classe_id)
+                                       ->get()
+                                       ->sortBy('date');
+                    Log::info($seances);
+                    break;
+                default:
+                    $seances = Seances::with('classe', 'prof')->get();
+                    break;
+            }  
 
         return response()->json([
             'seances' => $seances
@@ -71,6 +93,39 @@ class SeanceService
             
         ], 200);
     }
+
+    static function getTodaysSeance(){
+        $user = auth('api')->user();
+        $role = auth('api')->user()->roles[0]->name;
+        Log::info($role);
+        Log::info($user);
+        $today = date('Y-m-d'); // get today's date
+        switch ($role) {
+            case 'Professeur':
+                $seances = Seances::where('prof_id', $user->employee_id)->with('classe', 'prof')->whereDate('date', $today)->get();
+                break;
+            case 'Administration':
+                $seances = Seances::with('classe', 'prof')->whereDate('date', $today)->get();
+            case 'Etudiant':
+                $student = Employee::find($user->employee_id);
+                Log::info($student);
+                $seances = Seances::with('classe', 'prof')
+                                ->where('classe_id', $student->classe_id)
+                                   ->whereDate('date', $today)
+                                   ->get()
+                                   ->sortBy('date');
+                Log::info($seances);
+                
+                break;
+            default:
+                $seances = Seances::with('classe', 'prof')->get();
+                break;
+        }
+    
+    return response()->json([
+        'seances' => $seances
+    ], 200);
+}
     
     
 }
